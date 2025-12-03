@@ -1,0 +1,143 @@
+<goHome-component />
+
+<div class="form-wrapper">
+  <div class="form-container">
+    <h2>Formulario de Registro</h2>
+    <hr class="separator" />
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- ========== FILA 1 ========== -->
+      <div class="form-row">
+        <!-- ID -->
+        <div class="form-group">
+          <label>Id</label>
+          <input type="text" formControlName="id" />
+
+          <!-- ERRORES -->
+          <span
+            class="error-text"
+            *ngIf="form.get('id')?.touched && form.get('id')?.hasError('required')"
+          >
+            Campo obligatorio
+          </span>
+
+          <span class="error-text" *ngIf="form.get('id')?.hasError('minlength')">
+            Mínimo 3 caracteres
+          </span>
+
+          <span class="error-text" *ngIf="form.get('id')?.hasError('maxlength')">
+            Máximo 10 caracteres
+          </span>
+
+          <span class="error-text" *ngIf="form.get('id')?.hasError('idExists')">
+            El ID ya existe
+          </span>
+        </div>
+
+        <!-- NAME -->
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" formControlName="name" />
+
+          <span
+            class="error-text"
+            *ngIf="form.get('name')?.touched && form.get('name')?.hasError('required')"
+          >
+            Campo obligatorio
+          </span>
+
+          <span class="error-text" *ngIf="form.get('name')?.hasError('minlength')">
+            Mínimo 5 caracteres
+          </span>
+
+          <span class="error-text" *ngIf="form.get('name')?.hasError('maxlength')">
+            Máximo 100 caracteres
+          </span>
+        </div>
+      </div>
+
+      <!-- ========== FILA 2 ========== -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Descripción</label>
+          <input type="text" formControlName="description" />
+
+          <span
+            class="error-text"
+            *ngIf="
+              form.get('description')?.touched && form.get('description')?.hasError('required')
+            "
+          >
+            Campo obligatorio
+          </span>
+
+          <span class="error-text" *ngIf="form.get('description')?.hasError('minlength')">
+            Mínimo 10 caracteres
+          </span>
+
+          <span class="error-text" *ngIf="form.get('description')?.hasError('maxlength')">
+            Máximo 200 caracteres
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label>Logo</label>
+          <input type="text" formControlName="logo" />
+
+          <span
+            class="error-text"
+            *ngIf="form.get('logo')?.touched && form.get('logo')?.hasError('required')"
+          >
+            Campo obligatorio
+          </span>
+        </div>
+      </div>
+
+      <!-- ========== FILA 3 ========== -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha de Liberación</label>
+          <input type="date" formControlName="date_release" [min]="today" />
+
+          <span
+            class="error-text"
+            *ngIf="
+              form.get('date_release')?.touched && form.get('date_release')?.hasError('required')
+            "
+          >
+            Campo obligatorio
+          </span>
+
+          <span class="error-text" *ngIf="form.get('date_release')?.hasError('invalidRelease')">
+            Debe ser mayor o igual a hoy
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label>Fecha de Revisión</label>
+          <input type="date" formControlName="date_revision" />
+
+          <span
+            class="error-text"
+            *ngIf="
+              form.get('date_revision')?.touched && form.get('date_revision')?.hasError('required')
+            "
+          >
+            Campo obligatorio
+          </span>
+
+          <span class="error-text" *ngIf="form.get('date_revision')?.hasError('invalidReview')">
+            Debe ser un año exacto después de la fecha de liberación
+          </span>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button type="reset" class="btn-reset" (click)="onReset()">Reiniciar</button>
+        <button type="submit" class="btn-submit">
+          {{ editing ? 'Actualizar' : 'Agregar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

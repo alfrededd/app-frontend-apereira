@@ -1,0 +1,61 @@
+<goHome-component />
+
+<!-- BARRA SUPERIOR: busqueda a la izquierda -->
+<div class="search-and-controls">
+  <div class="search-container">
+    <!-- uso de template ref #q para evitar errores de cast en el template -->
+    <input #q type="text" placeholder="Search" (input)="onSearch(q.value)" />
+  </div>
+
+
+<!-- TABLA -->
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>Logo</th>
+        <th>Nombre del Producto</th>
+        <th>Descripción</th>
+        <th>Fecha de Liberación</th>
+        <th>Fecha de Revisión</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let product of products">
+        <!-- LOGO -->
+        <td>
+          <div class="logo-circle">
+            <img [src]="product.logo" alt="logo" class="logo-img" />
+          </div>
+        </td>
+
+        <!-- NOMBRE -->
+        <td>{{ product.name }}</td>
+
+        <!-- DESCRIPCIÓN -->
+        <td>{{ product.description }}</td>
+
+        <!-- FECHA LIBERACIÓN -->
+        <td>{{ product.date_release | date : 'yyyy-MM-dd' }}</td>
+
+        <!-- FECHA REVISIÓN -->
+        <td>{{ product.date_revision | date : 'yyyy-MM-dd' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <div class="results-controls">
+    <div class="results-count">{{ products.length }} Resultados</div>
+
+    <div class="limit-select">
+      <label for="limitSelect" class="sr-only">Registros</label>
+      <select id="limitSelect" #sel (change)="onLimitChange(sel.value)">
+        <option *ngFor="let l of limits" [value]="l" [selected]="l === recordsLimit">
+          {{ l }}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>

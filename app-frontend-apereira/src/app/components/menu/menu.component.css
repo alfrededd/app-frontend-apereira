@@ -1,0 +1,34 @@
+.option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  padding: 20px ;
+}
+
+.option-card img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #333;
+}
+
+.option-card p {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 480px) {
+  .option-card img {
+    width: 150px;
+    height: 150px;
+  }
+  .option-card p {
+    font-size: 14px;
+  }
+}

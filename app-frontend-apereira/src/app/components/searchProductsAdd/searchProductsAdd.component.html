@@ -1,0 +1,99 @@
+<goHome-component />
+
+<div class="top-container">
+
+  <!-- BÚSQUEDA -->
+  <input
+    type="text"
+    placeholder="Search"
+    (input)="onSearch($event)"
+  />
+
+  <!-- BOTÓN AGREGAR -->
+  <button class="add-btn" (click)="goForm()">Agregar</button>
+
+</div>
+
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>Logo</th>
+        <th>Nombre del Producto</th>
+        <th>Descripcion</th>
+        <th>Fecha de Liberacion</th>
+        <th>Fecha de Reestructuración</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let product of products; let i = index">
+
+        <!-- LOGO -->
+        <td>
+          <div class="logo-circle">
+            <img [src]="product.logo" class="logo-img" />
+          </div>
+        </td>
+
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.date_release | date:'yyyy-MM-dd' }}</td>
+        <td>{{ product.date_revision | date:'yyyy-MM-dd' }}</td>
+
+        <!-- MENÚ DE OPCIONES -->
+        <td>
+  <div class="menu-container">
+
+    <!-- BOTÓN ⋮ -->
+    <div class="options-btn"
+         (click)="toggleMenu(i)">
+      ⋮
+    </div>
+
+    <!-- MENÚ -->
+    <div class="menu" [style.display]="openMenuIndex === i ? 'flex' : 'none'">
+
+      <div (click)="goEdit(product)">Editar</div>
+      <div (click)="confirmDelete(product)">Eliminar</div>
+
+    </div>
+
+  </div>
+</td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="results-controls">
+  <div class="results-count">{{ products.length }} Resultados</div>
+
+  <div class="limit-select">
+      <label for="limitSelect" class="sr-only">Registros</label>
+  <select (change)="onLimitChange($event)">
+    <option *ngFor="let limit of limits" [value]="limit">
+      {{ limit }}
+    </option>
+  </select>
+   </div>
+</div>
+<div class="confirm-modal" [style.display]="showConfirmModal ? 'flex' : 'none'">
+  <div class="confirm-modal-content">
+
+    <p>{{ confirmMessage }}</p>
+    <br>
+    <br>
+    <br>
+
+    <hr/>
+    <br>
+    <div class="confirm-modal-buttons">
+      <button class="btn-cancel" (click)="cancelConfirm()">Cancelar</button>
+      <button class="btn-confirm" (click)="confirm()">Confirmar</button>
+    </div>
+
+  </div>
+</div>
